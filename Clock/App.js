@@ -1,24 +1,30 @@
+//import React from 'react'
+//import TextExample from './TextExample.js'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  View,
   Text,
-  Alert,
-  Image,
-  Button,
+  TouchableOpacity,
   TouchableHighlight,
+  View,
+  Image,
   StyleSheet
 } from 'react-native';
 
-export default class VictorClock extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      menuShowing: false,
       tictoc: true,
-      bgColor:'#405d27',
+      bgColor:'#fbd4c8',
       format24: true
     };
 
+    this.onPressSetting = this.onPressSetting.bind(this);
+    this.renderDropDownBox = this.renderDropDownBox.bind(this);
     this.onPressColor = this.onPressColor.bind(this);
     this.onChangeFormat24 = this.onChangeFormat24.bind(this);
 
@@ -27,6 +33,32 @@ export default class VictorClock extends Component {
         return { tictoc: !previousState.tictoc };
       });
     }, 1000);
+  }
+
+  onPressSetting() {
+    this.setState({
+      menuShowing: !this.state.menuShowing
+    });
+  }
+
+  renderDropDownBox() {
+    if (this.state.menuShowing) {
+      return (
+        <View style={styles.dropDownBox}>
+          <TouchableHighlight onPress={() => this.onPressColor('#ffb6c0')}>
+            <View style={[styles.palleteView, {backgroundColor: '#ffb6c0'}]} />
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => this.onPressColor('#fbd4c8')}>
+            <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => this.onPressColor('#f7f2d1')}>
+            <View style={[styles.palleteView, {backgroundColor: '#f7f2d1'}]} />
+          </TouchableHighlight>
+        </View>
+      );
+    } else {
+      return null;
+    }
   }
 
   getFormattedDate() {
@@ -76,32 +108,58 @@ export default class VictorClock extends Component {
     let display = this.getFormattedDate();
 
     return (
-      <View style={[styles.entireView, {backgroundColor: this.state.bgColor}]}>
-        <View style={styles.containerView}>
-          <TouchableHighlight onPress={() => this.onChangeFormat24()}>
-            <View style={styles.boxView}>
-              <Text style = {styles.clockText}> {display} </Text>
-            </View>
-          </TouchableHighlight>
-
-          <View style={styles.palleteContainerView}>
-            <TouchableHighlight onPress={() => this.onPressColor('#c94c4c')}>
-              <View style={[styles.palleteView, {backgroundColor: '#c94c4c'}]} />
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.onPressColor('#034f84')}>
-              <View style={[styles.palleteView, {backgroundColor: '#034f84'}]} />
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.onPressColor('#405d27')}>
-              <View style={[styles.palleteView, {backgroundColor: '#405d27'}]} />
-            </TouchableHighlight>
+      <View style={styles.entireLayout}>
+          <View style={styles.contentLayout}>
+            <View style={[styles.entireView, {backgroundColor: this.state.bgColor}]}>
+                <View style={styles.containerView}>
+                  <TouchableHighlight onPress={() => this.onChangeFormat24()}>
+                    <View style={styles.boxView}>
+                      <Text style = {styles.clockText}> {display} </Text>
+                    </View>
+                  </TouchableHighlight>
+                </View>
+              </View>
           </View>
-        </View>
+          <View style={styles.topLayout}>
+            <TouchableOpacity onPress={() => this.onPressSetting()}>
+              <Image style={styles.settingIcon} source={require('../img/icon_setting.png')}/>
+            </TouchableOpacity>
+            {this.renderDropDownBox()}
+          </View>
       </View>
     )
   }
 };
 
 const styles = StyleSheet.create({
+  entireLayout: {
+      flex:1,
+  },
+  contentLayout: {
+      width: '100%',
+      height: '100%',
+  },
+  topLayout: {
+      width: '100%',
+      height:'100%',
+      position: 'absolute',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end'
+  },
+  dropDownBox: {
+    width: 90,
+    height: 300,
+    marginTop: 10,
+    marginRight: 10,
+    flex: 1,
+    flexDirection: 'column'
+  },
+  settingIcon: {
+    width: 50,
+    height: 50,
+    marginTop: 20,
+    marginRight: 30
+  },
   entireView: {
     height: '100%', width: '100%',
     flex: 1,flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
@@ -124,8 +182,5 @@ const styles = StyleSheet.create({
   },
   clockText: {
     fontSize: 25, fontWeight: 'bold', color: '#FFFFFF', textAlign: 'center',
-  },
-})
-
-// skip this line if using Create React Native App
-AppRegistry.registerComponent('Clock', () => VictorClock);
+  }
+});
