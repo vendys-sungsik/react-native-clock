@@ -1,186 +1,125 @@
-//import React from 'react'
-//import TextExample from './TextExample.js'
+import React from 'react';
+import { Button, Text, View } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import { YellowBox } from 'react-native';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Text,
-  TouchableOpacity,
-  TouchableHighlight,
-  View,
-  Image,
-  StyleSheet
-} from 'react-native';
+export default class App extends React.Component {
+	constructor(props) {
+		super(props);
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      menuShowing: false,
-      tictoc: true,
-      bgColor:'#fbd4c8',
-      format24: true
-    };
-
-    this.onPressSetting = this.onPressSetting.bind(this);
-    this.renderDropDownBox = this.renderDropDownBox.bind(this);
-    this.onPressColor = this.onPressColor.bind(this);
-    this.onChangeFormat24 = this.onChangeFormat24.bind(this);
-
-    setInterval(() => {
-      this.setState(previousState => {
-        return { tictoc: !previousState.tictoc };
-      });
-    }, 1000);
-  }
-
-  onPressSetting() {
-    this.setState({
-      menuShowing: !this.state.menuShowing
-    });
-  }
-
-  renderDropDownBox() {
-    if (this.state.menuShowing) {
-      return (
-        <View style={styles.dropDownBox}>
-          <TouchableHighlight onPress={() => this.onPressColor('#ffb6c0')}>
-            <View style={[styles.palleteView, {backgroundColor: '#ffb6c0'}]} />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onPressColor('#fbd4c8')}>
-            <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onPressColor('#f7f2d1')}>
-            <View style={[styles.palleteView, {backgroundColor: '#f7f2d1'}]} />
-          </TouchableHighlight>
-        </View>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  getFormattedDate() {
-      var date = new Date();
-      var str = date.getFullYear() + "-"
-                + this.getDoubleFormat(date.getMonth()) + "-"
-                + this.getDoubleFormat(date.getDate()) + " "
-                + this.getDoubleFormat(this.getHour(date.getHours() - 1)) + ":"
-                + this.getDoubleFormat(date.getMinutes()) + ":"
-                + this.getDoubleFormat(date.getSeconds());
-
-      return str;
-  }
-
-  getHour(hour) {
-    if (this.state.format24 == false) {
-      hour = hour - 12;
-    }
-
-    return hour;
-  }
-
-  // 한자리 문자열을 두 자리로 변환하여 리턴
-  getDoubleFormat(value) {
-    var returnValue;
-
-    if (((value + 1).toString().length) == 1) {
-      returnValue = "0" + (value + 1).toString();
-    } else {
-      returnValue = (value + 1).toString();
-    }
-
-    return returnValue;
-  }
-
-  onPressColor(color) {
-    this.state.bgColor = color;
-  }
-
-  onChangeFormat24() {
-    this.setState({
-      format24: !this.state.format24
-    });
-  }
+		YellowBox.ignoreWarnings(
+			['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'
+		]);
+	}
 
   render() {
-    let display = this.getFormattedDate();
+    return <MyNavigator />;
+  }
+}
 
+function getRandomNumber() {
+  return Math.floor(Math.random() * 10);
+}
+
+class ScreenComponentOne extends React.Component {
+  static navigationOptions = {
+    headerTitle: 'First screen',
+  };
+
+  render() {
     return (
-      <View style={styles.entireLayout}>
-          <View style={styles.contentLayout}>
-            <View style={[styles.entireView, {backgroundColor: this.state.bgColor}]}>
-                <View style={styles.containerView}>
-                  <TouchableHighlight onPress={() => this.onChangeFormat24()}>
-                    <View style={styles.boxView}>
-                      <Text style = {styles.clockText}> {display} </Text>
-                    </View>
-                  </TouchableHighlight>
-                </View>
-              </View>
-          </View>
-          <View style={styles.topLayout}>
-            <TouchableOpacity onPress={() => this.onPressSetting()}>
-              <Image style={styles.settingIcon} source={require('../img/icon_setting.png')}/>
-            </TouchableOpacity>
-            {this.renderDropDownBox()}
-          </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          borderWidth: 25,
+          borderColor: 'teal',
+        }}>
+        <Button
+          title="Go to two"
+          onPress={() => this.props.navigation.navigate('RouteNameTwo')}
+        />
       </View>
-    )
+    );
   }
-};
+}
 
-const styles = StyleSheet.create({
-  entireLayout: {
-      flex:1,
-  },
-  contentLayout: {
-      width: '100%',
-      height: '100%',
-  },
-  topLayout: {
-      width: '100%',
-      height:'100%',
-      position: 'absolute',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-end'
-  },
-  dropDownBox: {
-    width: 90,
-    height: 300,
-    marginTop: 10,
-    marginRight: 10,
-    flex: 1,
-    flexDirection: 'column'
-  },
-  settingIcon: {
-    width: 50,
-    height: 50,
-    marginTop: 20,
-    marginRight: 30
-  },
-  entireView: {
-    height: '100%', width: '100%',
-    flex: 1,flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
-  },
-  containerView: {
-    height: 220, width: '100%',
-    flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',
-  },
-  boxView: {
-    height: 100, width: '90%',
+class ScreenComponentTwo extends React.Component {
+  static navigationOptions = {
+    headerTitle: 'Second screen',
+  };
 
-    borderWidth: 4, borderColor: '#FFFFFF',
-    justifyContent: 'center', alignItems: 'center'
-  },
-  palleteContainerView: {
-    flex: 1, flexDirection: 'row', marginTop: 20
-  },
-  palleteView: {
-    width: 100, height: 100, borderWidth: 1, borderColor: '#FFFFFF'
-  },
-  clockText: {
-    fontSize: 25, fontWeight: 'bold', color: '#FFFFFF', textAlign: 'center',
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          borderWidth: 25,
+          borderColor: 'orange',
+        }}>
+        <Button
+          title="Go to three"
+          onPress={() =>
+            this.props.navigation.navigate('RouteNameThree', {
+              randomNumber: getRandomNumber(),
+            })
+          }
+        />
+      </View>
+    );
   }
-});
+}
+
+class ScreenComponentThree extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: `Number: ${navigation.getParam('randomNumber')}`,
+    };
+  };
+
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 25,
+          borderColor: 'purple',
+        }}>
+        <Text style={{ fontSize: 25 }}>
+          {this.props.navigation.getParam('randomNumber')}
+        </Text>
+        <Button
+          title="Get a new random number"
+          onPress={() => {
+            this.props.navigation.setParams({
+              randomNumber: getRandomNumber(),
+            });
+          }}
+        />
+        <Button
+          title="Add another two"
+          onPress={() => this.props.navigation.push('RouteNameTwo')}
+        />
+        <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
+      </View>
+    );
+  }
+}
+
+const MyNavigator = createStackNavigator(
+  {
+    RouteNameOne: ScreenComponentOne,
+    RouteNameTwo: ScreenComponentTwo,
+    RouteNameThree: ScreenComponentThree,
+  },
+  {
+    // headerTransitionPreset: 'uikit',
+    // mode: 'modal',
+  }
+);

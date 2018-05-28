@@ -1,4 +1,5 @@
-import { AppRegistry } from 'react-native';
-import App from './src/App';
+import React, { Component } from 'react';
+import { AppRegistry,View,Text,StyleSheet } from 'react-native';
 
-AppRegistry.registerComponent('Clock', () => App);
+import nativeShop from './src/App';
+AppRegistry.registerComponent('Clock', () => nativeShop);
