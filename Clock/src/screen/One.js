@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import {
+  Button, View, Alert, BackHandler
+} from 'react-native';
 
 export default class ScreenComponentOne extends React.Component {
+  constructor(props) {
+		super(props);
+  }
+
   static navigationOptions = {
     headerTitle: '첫번째 화면',
   };
