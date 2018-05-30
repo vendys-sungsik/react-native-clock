@@ -42,7 +42,7 @@ const VictorNavigator = createStackNavigator(
   },
 	{
 		// docs: https://reactnavigation.org/docs/en/stack-navigator.html
-	  headerMode: 'screen', // float, screen, none
+	  headerMode: 'float', // float, screen, none
 		mode: 'card', // card, modal
 		navigationOptions: {
 			gesturesEnabled: false,

@@ -22,14 +22,6 @@ export default class ScreenComponentThree extends React.Component {
           {this.props.navigation.getParam('randomNumber')}
         </Text>
         <Button
-          title="Get a new random number"
-          onPress={() => {
-            this.props.navigation.setParams({
-              randomNumber: getRandomNumber(),
-            });
-          }}
-        />
-        <Button
           title="Add another two"
           onPress={() => this.props.navigation.push('RouteNameTwo')}
         />
