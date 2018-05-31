@@ -40,8 +40,8 @@ export default class ScreenComponentTwo extends React.Component {
     if (this.state.menuShowing) {
       return (
         <View style={styles.dropDownBox}>
-          <TouchableHighlight onPress={() => this.onSelectColor('#ffb6c0')}>
-            <View style={[styles.palleteView, {backgroundColor: '#ffb6c0'}]} />
+          <TouchableHighlight onPress={() => this.onSelectColor('#bbbbbb')}>
+            <View style={[styles.palleteView, {backgroundColor: '#bbbbbb'}]} />
           </TouchableHighlight>
           <TouchableHighlight onPress={() => this.onSelectColor('#fbd4c8')}>
             <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   settingIcon: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     marginTop: 20,
     marginRight: 30
   },

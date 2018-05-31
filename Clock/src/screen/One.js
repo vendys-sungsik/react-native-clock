@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   rowItem: {
     height: 60, width: '100%',
     flex: 1,flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start',
+    backgroundColor: '#FFFFFF',
     borderBottomColor: '#47315a',
     borderBottomWidth: 1 / PixelRatio.get(),
   },
