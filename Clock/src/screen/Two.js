@@ -8,7 +8,7 @@ import {
   StyleSheet,
   YellowBox
 } from 'react-native';
-import Clock from './Clock';
+import Clock from './modules/Clock';
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 10);
