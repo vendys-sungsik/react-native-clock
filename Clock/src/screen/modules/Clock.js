@@ -20,7 +20,7 @@ export default class Clock extends React.Component {
 
     this.state = {
       tictoc: true,
-      bgColor:'#c0c0c0',
+      bgColor:'#336699',
       format24: true
     };
 
