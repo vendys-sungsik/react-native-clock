@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AppRegistry,
   Text,
   TouchableOpacity,
   TouchableHighlight,
@@ -8,7 +9,6 @@ import {
   StyleSheet,
   YellowBox
 } from 'react-native';
-import Clock from './Clock';
 
 function getRandomNumber() {
   return Math.floor(Math.random() * 10);
@@ -24,13 +24,26 @@ export default class ScreenComponentTwo extends React.Component {
 
     this.state = {
       menuShowing: false,
+      tictoc: true,
+      bgColor:'#fbd4c8',
+      format24: true
     };
 
     this.onPressSetting = this.onPressSetting.bind(this);
     this.renderDropDownBox = this.renderDropDownBox.bind(this);
     this.onPressColor = this.onPressColor.bind(this);
+    this.onChangeFormat24 = this.onChangeFormat24.bind(this);
+
+    this.intervalId = setInterval(() => {
+      this.setState(previousState => {
+        return { tictoc: !previousState.tictoc };
+      });
+    }, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
 
   onPressSetting() {
     this.setState({
@@ -58,19 +71,66 @@ export default class ScreenComponentTwo extends React.Component {
     }
   }
 
+  getFormattedDate() {
+      var date = new Date();
+      var str = date.getFullYear() + "-"
+                + this.getDoubleFormat(date.getMonth()) + "-"
+                + this.getDoubleFormat(date.getDate()) + " "
+                + this.getDoubleFormat(this.getHour(date.getHours() - 1)) + ":"
+                + this.getDoubleFormat(date.getMinutes()) + ":"
+                + this.getDoubleFormat(date.getSeconds());
+
+      return str;
+  }
+
+  getHour(hour) {
+    if (this.state.format24 == false) {
+      hour = hour - 12;
+    }
+
+    return hour;
+  }
+
+  // 한자리 문자열을 두 자리로 변환하여 리턴
+  getDoubleFormat(value) {
+    var returnValue;
+
+    if (((value + 1).toString().length) == 1) {
+      returnValue = "0" + (value + 1).toString();
+    } else {
+      returnValue = (value + 1).toString();
+    }
+
+    return returnValue;
+  }
+
   onPressColor(color) {
+    this.state.bgColor = color;
+  }
+
+  onChangeFormat24() {
     this.setState({
-      bgColor : color
+      format24: !this.state.format24
     });
   }
 
   render() {
+    let display = this.getFormattedDate();
+
     return (
       <View style={styles.entireLayout}>
         <View style={styles.contentLayout}>
 
           <View style={[styles.entireView, {backgroundColor: this.state.bgColor}]}>
-            <Clock />
+
+            <View style={styles.containerView}>
+              <TouchableHighlight onPress={() => this.onChangeFormat24()}>
+                <View style={styles.boxView}>
+                  <Text style = {styles.clockText}> {display} </Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+
           </View>
 
         </View>
@@ -83,6 +143,20 @@ export default class ScreenComponentTwo extends React.Component {
         </View>
       </View>
     )
+
+    // return (
+    //   <View style={{flex: 1, justifyContent: 'center'}}>
+    //     <Button
+    //       title="세번째 화면으로 이동"
+    //       onPress={() =>
+    //         this.props.navigation.navigate('RouteNameThree', {
+    //           randomNumber: getRandomNumber(),
+    //         })
+    //       }
+    //     />
+    //   </View>
+    // );
+
   }
 }
 
@@ -93,10 +167,6 @@ const styles = StyleSheet.create({
   contentLayout: {
       width: '100%',
       height: '100%',
-  },
-  entireView: {
-    height: '100%', width: '100%',
-    flex: 1,flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
   },
   topLayout: {
       width: '100%',
@@ -119,10 +189,27 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginRight: 30
   },
+  entireView: {
+    height: '100%', width: '100%',
+    flex: 1,flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
+  },
+  containerView: {
+    height: 220, width: '100%',
+    flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',
+  },
+  boxView: {
+    height: 100, width: '90%',
+
+    borderWidth: 4, borderColor: '#FFFFFF',
+    justifyContent: 'center', alignItems: 'center'
+  },
   palleteContainerView: {
     flex: 1, flexDirection: 'row', marginTop: 20
   },
   palleteView: {
     width: 100, height: 100, borderWidth: 1, borderColor: '#FFFFFF'
+  },
+  clockText: {
+    fontSize: 25, fontWeight: 'bold', color: '#FFFFFF', textAlign: 'center',
   }
 });
