@@ -143,20 +143,6 @@ export default class ScreenComponentTwo extends React.Component {
         </View>
       </View>
     )
-
-    // return (
-    //   <View style={{flex: 1, justifyContent: 'center'}}>
-    //     <Button
-    //       title="세번째 화면으로 이동"
-    //       onPress={() =>
-    //         this.props.navigation.navigate('RouteNameThree', {
-    //           randomNumber: getRandomNumber(),
-    //         })
-    //       }
-    //     />
-    //   </View>
-    // );
-
   }
 }
 

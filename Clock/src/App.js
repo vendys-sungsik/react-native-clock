@@ -47,7 +47,7 @@ const VictorNavigator = createStackNavigator(
 		navigationOptions: {
 			gesturesEnabled: false,
 			headerStyle: {
-        backgroundColor: '#011f4b80',
+        backgroundColor: '#cc0000',
         position: 'relative', // absolute, relative
         height: 40,
         top: 0,
@@ -58,6 +58,7 @@ const VictorNavigator = createStackNavigator(
 			headerTintColor: '#fff',
 			headerTitleStyle: {
 				fontWeight: 'bold',
+				fontSize: 16,
 			},
 		},
 		transitionConfig: () => ({

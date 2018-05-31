@@ -6,17 +6,16 @@ import {
   View,
   Image,
   StyleSheet,
-  YellowBox
+  YellowBox,
+  Alert,
 } from 'react-native';
 import Clock from './modules/Clock';
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * 10);
-}
-
 export default class ScreenComponentTwo extends React.Component {
-  static navigationOptions = {
-    headerTitle: '두번째 화면 - Clock',
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: `${navigation.getParam('titleName')}`,
+    };
   };
 
   constructor(props) {
@@ -28,9 +27,8 @@ export default class ScreenComponentTwo extends React.Component {
 
     this.onPressSetting = this.onPressSetting.bind(this);
     this.renderDropDownBox = this.renderDropDownBox.bind(this);
-    this.onPressColor = this.onPressColor.bind(this);
+    this.onSelectColor = this.onSelectColor.bind(this);
   }
-
 
   onPressSetting() {
     this.setState({
@@ -42,13 +40,13 @@ export default class ScreenComponentTwo extends React.Component {
     if (this.state.menuShowing) {
       return (
         <View style={styles.dropDownBox}>
-          <TouchableHighlight onPress={() => this.onPressColor('#ffb6c0')}>
+          <TouchableHighlight onPress={() => this.onSelectColor('#ffb6c0')}>
             <View style={[styles.palleteView, {backgroundColor: '#ffb6c0'}]} />
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onPressColor('#fbd4c8')}>
+          <TouchableHighlight onPress={() => this.onSelectColor('#fbd4c8')}>
             <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
           </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onPressColor('#f7f2d1')}>
+          <TouchableHighlight onPress={() => this.onSelectColor('#f7f2d1')}>
             <View style={[styles.palleteView, {backgroundColor: '#f7f2d1'}]} />
           </TouchableHighlight>
         </View>
@@ -58,23 +56,56 @@ export default class ScreenComponentTwo extends React.Component {
     }
   }
 
-  onPressColor(color) {
+  onSelectColor(color) {
     this.setState({
       bgColor : color
     });
+
+    this.onPressSetting();
+  }
+
+  componentWillMount() {
+    this.willFocusSubscription = this.props.navigation.addListener(
+      'willFocus',
+      payload => {
+        //Alert.alert('___willFocus___');
+      }
+    );
+    this.didFocusSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        //Alert.alert('___didFocus___');
+      }
+    );
+    this.willBlurSubscription = this.props.navigation.addListener(
+      'willBlur',
+      payload => {
+        //Alert.alert('___willBlur___');
+      }
+    );
+    this.didBlurSubscription = this.props.navigation.addListener(
+      'didBlur',
+      payload => {
+        //Alert.alert('___didBlur___');
+      }
+    );
+  }
+
+  componentWillUnmount() {
+    this.willFocusSubscription.remove();
+    this.didFocusSubscription.remove();
+    this.willBlurSubscription.remove();
+    this.didBlurSubscription.remove();
   }
 
   render() {
     return (
       <View style={styles.entireLayout}>
         <View style={styles.contentLayout}>
-
           <View style={[styles.entireView, {backgroundColor: this.state.bgColor}]}>
             <Clock />
           </View>
-
         </View>
-
         <View style={styles.topLayout}>
           <TouchableOpacity onPress={() => this.onPressSetting()}>
             <Image style={styles.settingIcon} source={require('../img/icon_setting.png')}/>
