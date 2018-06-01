@@ -40,15 +40,41 @@ export default class ScreenComponentTwo extends React.Component {
     if (this.state.menuShowing) {
       return (
         <View style={styles.dropDownBox}>
-          <TouchableHighlight onPress={() => this.onSelectColor('#bbbbbb')}>
-            <View style={[styles.palleteView, {backgroundColor: '#bbbbbb'}]} />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onSelectColor('#fbd4c8')}>
-            <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={() => this.onSelectColor('#f7f2d1')}>
-            <View style={[styles.palleteView, {backgroundColor: '#f7f2d1'}]} />
-          </TouchableHighlight>
+          <View style={styles.dropDownBoxLinear}>
+            <TouchableHighlight onPress={() => this.onSelectColor('#bbbbbb')}>
+              <View style={[styles.palleteView, {backgroundColor: '#bbbbbb'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#fbd4c8')}>
+              <View style={[styles.palleteView, {backgroundColor: '#fbd4c8'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#f7f2d1')}>
+              <View style={[styles.palleteView, {backgroundColor: '#f7f2d1'}]} />
+            </TouchableHighlight>
+          </View>
+
+          <View style={styles.dropDownBoxLinear}>
+            <TouchableHighlight onPress={() => this.onSelectColor('#5f6e44')}>
+              <View style={[styles.palleteView, {backgroundColor: '#5f6e44'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#9293b4')}>
+              <View style={[styles.palleteView, {backgroundColor: '#9293b4'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#bab75b')}>
+              <View style={[styles.palleteView, {backgroundColor: '#bab75b'}]} />
+            </TouchableHighlight>
+          </View>
+
+          <View style={styles.dropDownBoxLinear}>
+            <TouchableHighlight onPress={() => this.onSelectColor('#fb6e6a')}>
+              <View style={[styles.palleteView, {backgroundColor: '#fb6e6a'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#b27d72')}>
+              <View style={[styles.palleteView, {backgroundColor: '#b27d72'}]} />
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.onSelectColor('#724234')}>
+              <View style={[styles.palleteView, {backgroundColor: '#724234'}]} />
+            </TouchableHighlight>
+          </View>
         </View>
       );
     } else {
@@ -131,18 +157,26 @@ const styles = StyleSheet.create({
   },
   topLayout: {
       width: '100%',
-      height:'100%',
+      height:150,
       position: 'absolute',
       justifyContent: 'flex-start',
-      alignItems: 'flex-end'
+      alignItems: 'flex-end',
   },
   dropDownBox: {
     width: 90,
-    height: 300,
+    height: 100,
     marginTop: 10,
-    marginRight: 10,
+    marginRight: 5,
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#353535'
+  },
+  dropDownBoxLinear: {
+    marginTop: 0,
+    marginRight: 0,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#929292'
   },
   settingIcon: {
     width: 40,
@@ -154,6 +188,6 @@ const styles = StyleSheet.create({
     flex: 1, flexDirection: 'row', marginTop: 20
   },
   palleteView: {
-    width: 100, height: 100, borderWidth: 1, borderColor: '#FFFFFF'
+    width: 30, height: 30, borderWidth: 1, borderColor: '#484442'
   }
 });
