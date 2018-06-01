@@ -157,14 +157,11 @@ const styles = StyleSheet.create({
   },
   topLayout: {
       width: '100%',
-      height:150,
       position: 'absolute',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
   },
   dropDownBox: {
-    width: 90,
-    height: 100,
     marginTop: 10,
     marginRight: 5,
     flex: 1,
