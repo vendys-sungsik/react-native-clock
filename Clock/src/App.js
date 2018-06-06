@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 import ScreenComponentOne from './screen/One';
 import ScreenComponentTwo from './screen/Two';
 import ScreenComponentThree from './screen/Three';
+import ScreenComponentTabbar from './screen/Tabbar';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -39,6 +40,7 @@ const VictorNavigator = createStackNavigator(
     RouteNameOne: ScreenComponentOne,
     RouteNameTwo: ScreenComponentTwo,
     RouteNameThree: ScreenComponentThree,
+		RouteNameTabbar: ScreenComponentTabbar,
   },
 	{
 		// docs: https://reactnavigation.org/docs/en/stack-navigator.html

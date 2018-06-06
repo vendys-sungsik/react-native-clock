@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, View, ListView, Text, StyleSheet, PixelRatio, TouchableOpacity
+  Button, View, ListView, Text, StyleSheet, PixelRatio, TouchableOpacity,
 } from 'react-native';
 
 export default class ScreenComponentOne extends React.Component {
@@ -15,22 +15,30 @@ export default class ScreenComponentOne extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRows([
         ['Clock - 배경색이 변하는 시게', 'RouteNameTwo'],
-        ['hello', 'RouteNameTwo'],
-        ['diamond', 'RouteNameTwo'],
-        ['Clock - 배경색이 변하는 시게', 'RouteNameTwo'],
-        ['hello', 'RouteNameTwo'],
-        ['diamond', 'RouteNameTwo'],
-        ['Clock - 배경색이 변하는 시게', 'RouteNameTwo'],
-        ['hello', 'RouteNameTwo'],
-        ['diamond', 'RouteNameTwo'],
-        ['Clock - 배경색이 변하는 시게', 'RouteNameTwo'],
-        ['hello', 'RouteNameTwo'],
-        ['diamond', 'RouteNameTwo'],
-        ['Clock - 배경색이 변하는 시게', 'RouteNameTwo'],
-        ['hello', 'RouteNameTwo'],
-        ['diamond', 'RouteNameTwo'],
+        ['Tabbar - 하단 네비게이션', 'RouteNameTabbar'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
+        ['-', 'RouteNameTwo'],
       ])
     };
+  }
+
+  navigateScreen(target) {
+    this.props.navigation.navigate(target[1], {
+      titleName: target[0],
+    })
   }
 
   render() {
@@ -39,27 +47,15 @@ export default class ScreenComponentOne extends React.Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            // <Button
-            //   title={rowData[0]}
-            //   onPress={() =>
-            //     this.props.navigation.navigate('RouteNameTwo', {
-            //       titleName: 'Clock',
-            //     })
-            //   }
-            // />
-
             <TouchableOpacity
               onPress={() =>
-                this.props.navigation.navigate('RouteNameTwo', {
-                  titleName: 'Clock',
-                })
-                }
-              >
+                this.navigateScreen(rowData)
+              }
+            >
               <View style={styles.rowItem}>
                 <Text style={styles.rowText}>{rowData[0]}</Text>
               </View>
             </TouchableOpacity>
-
           }
         />
       </View>
