@@ -4,7 +4,7 @@ import { Button, Text, View } from 'react-native';
 export default class ScreenComponentThree extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      headerTitle: `Tabbar Screen`,
+      headerTitle: `${navigation.getParam('titleName')}`,
     };
   };
 
